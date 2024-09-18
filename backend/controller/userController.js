@@ -3,6 +3,8 @@ import { userAuthZod, userRegisterZod } from "../config/zodSchema.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
+import mongoose from "mongoose";
+import Account from "../models/accountModel.js";
 
 // POST api/users/auth PUBLIC
 const userAuthController = asyncHandler(async (req, res) => {
@@ -45,10 +47,11 @@ const userRegisterController = asyncHandler(async (req, res) => {
 	const userExist = await User.findOne({ username });
 	if (userExist) {
 		res.status(400);
-		throw new Error("username already exist, try another username");
+		throw new Error("Username already exists, please try another one.");
 	}
 
 	const hashedPassword = await bcrypt.hash(password, 10);
+
 	const user = await User.create({
 		firstName,
 		lastName,
@@ -56,7 +59,16 @@ const userRegisterController = asyncHandler(async (req, res) => {
 		password: hashedPassword,
 	});
 
-	if (user) {
+	const account = await Account.create({
+		userId: user._id,
+		balance: 1 + Math.random() * 10000,
+	});
+
+	user.accounts.push(account._id);
+
+	await user.save();
+
+	if (user && account) {
 		generateToken(res, user._id);
 		return res.status(200).json({ user });
 	} else {

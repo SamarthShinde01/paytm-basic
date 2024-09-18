@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoute.js";
+import accountRoutes from "./routes/accountRoute.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 const PORT = process.env.PORT;
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRoutes);
+app.use("/api/account", accountRoutes);
 
 app.get("/", (req, res) => res.send("server is live.."));
 
