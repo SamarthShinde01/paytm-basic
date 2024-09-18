@@ -1,6 +1,7 @@
 import apiSlice from "./apiSlice";
 
 const USERS_URL = "/api/users";
+const ACCOUNT_URL = "/api/account";
 
 const userApiSlices = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -25,8 +26,19 @@ const userApiSlices = apiSlice.injectEndpoints({
 				body: data,
 			}),
 		}),
+		balance: builder.mutation({
+			query: (data) => ({
+				url: `${ACCOUNT_URL}/balance`,
+				method: "GET",
+				body: data,
+			}),
+		}),
 	}),
 });
 
-export const { useSigninMutation, useSignupMutation, useLogoutMutation } =
-	userApiSlices;
+export const {
+	useSigninMutation,
+	useSignupMutation,
+	useLogoutMutation,
+	useBalanceMutation,
+} = userApiSlices;

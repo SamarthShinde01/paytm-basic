@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 
 //GET api/accounts/balance PRIVATE
 const accountBalanceController = asyncHandler(async (req, res) => {
-	const account = await Account.findOne({ userId: req.user._id });
+	const account = await Account.findOne({
+		userId: req.user._id,
+	});
 	if (!account) {
 		res.status(400);
 		throw new Error("account does not exist");
