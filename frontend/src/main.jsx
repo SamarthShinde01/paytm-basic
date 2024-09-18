@@ -5,6 +5,7 @@ import {
 	createRoutesFromElements,
 	Route,
 	RouterProvider,
+	Navigate,
 } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
@@ -16,7 +17,10 @@ import { Send } from "./pages/Send.jsx";
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
-			<Route index path="/dashboard" element={<Dashboard />} />
+			{/* redirect from / to /signup */}
+			<Route index element={<Navigate to="/signup" />} />
+
+			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/signup" element={<Signup />} />
 			<Route path="/signin" element={<Signin />} />
 			<Route path="/send" element={<Send />} />
