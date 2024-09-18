@@ -121,10 +121,36 @@ const updateUserProfileController = asyncHandler(async (req, res) => {
 	}
 });
 
+//PUBLIC GET  /api/users/bulk
+const userBulkController = asyncHandler(async (req, res) => {
+	const filter = req.query.filter || "";
+
+	const users = await User.find({
+		$or: [
+			{
+				firstName: { $regex: filter },
+			},
+			{
+				lastName: { $regex: filter },
+			},
+		],
+	});
+
+	return res.status(200).json({
+		user: users.map((user) => ({
+			_id: user._id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			username: user.username,
+		})),
+	});
+});
+
 export {
 	userAuthController,
 	userRegisterController,
 	userLogoutController,
 	getUserProfileController,
 	updateUserProfileController,
+	userBulkController,
 };

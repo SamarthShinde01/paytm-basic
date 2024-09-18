@@ -3,6 +3,7 @@ import {
 	getUserProfileController,
 	updateUserProfileController,
 	userAuthController,
+	userBulkController,
 	userLogoutController,
 	userRegisterController,
 } from "../controller/userController.js";
@@ -12,6 +13,7 @@ const router = express.Router();
 router.post("/auth", userAuthController);
 router.post("/", userRegisterController);
 router.post("/logout", userLogoutController);
+router.get("/bulk", userBulkController);
 router.get("/profile", protect, getUserProfileController);
 router.put("/profile", protect, updateUserProfileController);
 

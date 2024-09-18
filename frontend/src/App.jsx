@@ -1,5 +1,11 @@
+import { Outlet } from "react-router-dom";
+
 function App() {
-	return <h1 className="font-bold text-3xl">hiii samarth</h1>;
+	return (
+		<>
+			<Outlet />
+		</>
+	);
 }
 
 export default App;
