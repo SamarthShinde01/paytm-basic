@@ -22,12 +22,13 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			{/* redirect from / to /signup */}
-			<Route index element={<Navigate to="/signin" />} />
+			{/* <Route index element={<Navigate to="/signin" />} /> */}
 
 			<Route path="/signup" element={<Signup />} />
 			<Route path="/signin" element={<Signin />} />
 
 			<Route path="" element={<PrivateRoutes />}>
+				<Route index element={<Navigate to="/dashboard" />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/send" element={<SendMoney />} />
 				<Route path="/profile" element={<Profile />} />
