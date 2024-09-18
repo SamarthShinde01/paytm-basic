@@ -12,7 +12,8 @@ import "./index.css";
 import { Dashboard } from "./pages/Dashboard.jsx";
 import { Signup } from "./pages/Signup.jsx";
 import { Signin } from "./pages/Signin.jsx";
-import { Send } from "./pages/Send.jsx";
+import { SendMoney } from "./pages/SendMoney.jsx";
+import { Profile } from "./pages/Profile.jsx";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -23,7 +24,9 @@ const router = createBrowserRouter(
 			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/signup" element={<Signup />} />
 			<Route path="/signin" element={<Signin />} />
-			<Route path="/send" element={<Send />} />
+			<Route path="/send" element={<SendMoney />} />
+
+			<Route path="/profile" element={<Profile />} />
 		</Route>
 	)
 );
