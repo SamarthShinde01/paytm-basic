@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./Button";
+import { useDispatch } from "react-redux";
+import { useBulkMutation } from "../slices/userApiSlices";
+import { toast } from "react-toastify";
 
 export const Users = () => {
+	const [filter, setFilter] = useState("");
 	// Replace with backend call
-	const [users, setUsers] = useState([
-		{
-			firstName: "Harkirat",
-			lastName: "Singh",
-			_id: 1,
-		},
-	]);
+	const [users, setUsers] = useState([]);
+
+	const [bulkApi] = useBulkMutation();
+
+	useEffect(() => {
+		const fetchBulkUser = async () => {
+			try {
+				const res = await bulkApi().unwrap();
+				setUsers(res.user);
+				console.log(res.user);
+			} catch (err) {
+				toast.error(err?.data?.message || err.error);
+			}
+		};
+
+		fetchBulkUser();
+	}, [filter]);
 
 	return (
 		<div className="p-6">
@@ -18,6 +32,11 @@ export const Users = () => {
 				<input
 					type="text"
 					placeholder="Search users..."
+					onChange={(e) =>
+						setTimeout(() => {
+							setFilter(e.target.value);
+						}, 1000)
+					}
 					className="w-full px-4 py-2 border rounded-lg border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
 				/>
 			</div>

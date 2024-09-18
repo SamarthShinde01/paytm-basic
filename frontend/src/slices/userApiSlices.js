@@ -36,7 +36,7 @@ const userApiSlices = apiSlice.injectEndpoints({
 		bulk: builder.mutation({
 			query: (data) => ({
 				url: `${USERS_URL}/bulk`,
-				method: "POST",
+				method: "GET",
 				body: data,
 			}),
 		}),

@@ -121,7 +121,7 @@ const updateUserProfileController = asyncHandler(async (req, res) => {
 
 //PUBLIC GET  /api/users/bulk
 const userBulkController = asyncHandler(async (req, res) => {
-	const filter = req.query.filter || "";
+	const filter = req.body.filter || "";
 
 	const users = await User.find({
 		$or: [
