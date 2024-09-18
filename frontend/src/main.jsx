@@ -14,6 +14,8 @@ import { Signup } from "./pages/Signup.jsx";
 import { Signin } from "./pages/Signin.jsx";
 import { SendMoney } from "./pages/SendMoney.jsx";
 import { Profile } from "./pages/Profile.jsx";
+import { Provider } from "react-redux";
+import store from "./store.js";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -32,7 +34,9 @@ const router = createBrowserRouter(
 );
 
 createRoot(document.getElementById("root")).render(
-	<StrictMode>
-		<RouterProvider router={router} />
-	</StrictMode>
+	<Provider store={store}>
+		<StrictMode>
+			<RouterProvider router={router} />
+		</StrictMode>
+	</Provider>
 );

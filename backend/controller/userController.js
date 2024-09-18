@@ -3,7 +3,6 @@ import { userAuthZod, userRegisterZod } from "../config/zodSchema.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
-import mongoose from "mongoose";
 import Account from "../models/accountModel.js";
 
 // POST api/users/auth PUBLIC
@@ -25,9 +24,7 @@ const userAuthController = asyncHandler(async (req, res) => {
 
 	if (matchPassword && userExist) {
 		generateToken(res, userExist._id);
-		return res
-			.status(200)
-			.json({ message: `${userExist.firstName} logged In Successfully` });
+		return res.status(200).json(userExist);
 	} else {
 		res.status(400);
 		throw new Error("Invalid password, try again");
@@ -106,6 +103,7 @@ const updateUserProfileController = asyncHandler(async (req, res) => {
 
 	user.firstName = req.body.firstName || user.firstName;
 	user.lastName = req.body.lastName || user.lastName;
+	user.username = req.body.username || user.username;
 
 	if (req.body.password) {
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
