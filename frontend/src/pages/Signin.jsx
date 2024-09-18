@@ -60,6 +60,8 @@ export const Signin = () => {
 						type="email"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+						name="username"
+						required
 					/>
 					<input
 						placeholder="test@98562"
@@ -67,9 +69,12 @@ export const Signin = () => {
 						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						name="password"
+						required
 					/>
 					{isLoading ? <Loader /> : <Button label="Sign in" type="submit" />}
 				</form>
+
 				<div className="pt-4">
 					<BottomWarning
 						label="Don't have an account?"
