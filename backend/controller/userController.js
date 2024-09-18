@@ -82,12 +82,13 @@ const userLogoutController = asyncHandler(async (req, res) => {
 
 // GET  api/users/profile
 const getUserProfileController = asyncHandler(async (req, res) => {
-	const user = {
-		_id: req.user._id,
-		firstName: req.user.firstName,
-		lastName: req.user.lastName,
-		username: req.user.username,
-	};
+	let user;
+
+	if (req.body.to) {
+		user = await User.findById(req.body.to);
+	} else {
+		user = await User.findById(req.user._id);
+	}
 
 	return res.status(200).json(user);
 });

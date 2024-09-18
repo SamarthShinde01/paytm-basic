@@ -47,6 +47,13 @@ const userApiSlices = apiSlice.injectEndpoints({
 				body: data,
 			}),
 		}),
+		getToUser: builder.mutation({
+			query: (data) => ({
+				url: `${USERS_URL}/profile`,
+				method: "POST",
+				body: data,
+			}),
+		}),
 	}),
 });
 
@@ -57,4 +64,5 @@ export const {
 	useBalanceMutation,
 	useBulkMutation,
 	useUpdateMutation,
+	useGetToUserMutation,
 } = userApiSlices;

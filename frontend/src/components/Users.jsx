@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import { useDispatch } from "react-redux";
 import { useBulkMutation } from "../slices/userApiSlices";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 export const Users = () => {
 	const [filter, setFilter] = useState("");
@@ -61,7 +62,9 @@ function User({ user }) {
 				</div>
 			</div>
 			<div>
-				<Button label={"Send Money"} />
+				<Link to={`/send?to=${user._id}`}>
+					<Button label={"Send Money"} />
+				</Link>
 			</div>
 		</div>
 	);

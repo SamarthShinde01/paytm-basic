@@ -14,7 +14,7 @@ router.post("/auth", userAuthController);
 router.post("/", userRegisterController);
 router.post("/logout", userLogoutController);
 router.get("/bulk", userBulkController);
-router.get("/profile", protect, getUserProfileController);
+router.post("/profile", protect, getUserProfileController);
 router.put("/profile", protect, updateUserProfileController);
 
 export default router;
