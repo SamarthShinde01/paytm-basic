@@ -17,13 +17,13 @@ export const Signin = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { userInfo } = useSelector((state) => state.auth);
+	// const { userInfo } = useSelector((state) => state.auth);
 
-	useEffect(() => {
-		if (userInfo) {
-			navigate("/dashboard");
-		}
-	}, [navigate, userInfo]);
+	// useEffect(() => {
+	// 	if (userInfo) {
+	// 		navigate("/dashboard");
+	// 	}
+	// }, [navigate, userInfo]);
 
 	const [signin, { isLoading }] = useSigninMutation();
 

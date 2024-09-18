@@ -33,6 +33,13 @@ const userApiSlices = apiSlice.injectEndpoints({
 				body: data,
 			}),
 		}),
+		bulk: builder.mutation({
+			query: (data) => ({
+				url: `${USERS_URL}/bulk`,
+				method: "POST",
+				body: data,
+			}),
+		}),
 	}),
 });
 
@@ -41,4 +48,5 @@ export const {
 	useSignupMutation,
 	useLogoutMutation,
 	useBalanceMutation,
+	useBulkMutation,
 } = userApiSlices;

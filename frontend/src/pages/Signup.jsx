@@ -50,7 +50,7 @@ export const Signup = () => {
 			}).unwrap();
 			dispatch(setCredentials({ ...res }));
 			toast.success("User Registered Successfully");
-			navigate("/");
+			navigate("/signin");
 		} catch (err) {
 			toast.error(err?.data?.message || err.error);
 		}
