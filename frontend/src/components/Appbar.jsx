@@ -1,10 +1,31 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../slices/authSlice";
+import { useLogoutMutation } from "../slices/userApiSlices";
+import { useDispatch } from "react-redux";
 
 export const Appbar = () => {
 	const [isDropdownOpen, setDropdownOpen] = useState(false);
 
 	const toggleDropdown = () => {
 		setDropdownOpen(!isDropdownOpen);
+	};
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const [logoutApiCall, { isLoading }] = useLogoutMutation();
+
+	const submitHandler = async () => {
+		try {
+			await logoutApiCall().unwrap();
+			dispatch(logout());
+			toast.success("Logged out successfully");
+			navigate("/signin");
+		} catch (err) {
+			toast.error(err?.data?.message || err.error);
+		}
 	};
 
 	return (
@@ -28,7 +49,10 @@ export const Appbar = () => {
 								<li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
 									Settings
 								</li>
-								<li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+								<li
+									onClick={submitHandler}
+									className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+								>
 									Logout
 								</li>
 							</ul>

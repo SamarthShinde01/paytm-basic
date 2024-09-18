@@ -16,19 +16,22 @@ import { SendMoney } from "./pages/SendMoney.jsx";
 import { Profile } from "./pages/Profile.jsx";
 import { Provider } from "react-redux";
 import store from "./store.js";
+import { PrivateRoutes } from "./components/PrivateRoutes.jsx";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			{/* redirect from / to /signup */}
-			<Route index element={<Navigate to="/signup" />} />
+			<Route index element={<Navigate to="/signin" />} />
 
-			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/signup" element={<Signup />} />
 			<Route path="/signin" element={<Signin />} />
-			<Route path="/send" element={<SendMoney />} />
 
-			<Route path="/profile" element={<Profile />} />
+			<Route path="" element={<PrivateRoutes />}>
+				<Route path="/dashboard" element={<Dashboard />} />
+				<Route path="/send" element={<SendMoney />} />
+				<Route path="/profile" element={<Profile />} />
+			</Route>
 		</Route>
 	)
 );
