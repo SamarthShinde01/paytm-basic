@@ -1,29 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
-import { useDispatch } from "react-redux";
-import { useBulkMutation } from "../slices/userApiSlices";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Users = () => {
-	const [filter, setFilter] = useState("");
-	// Replace with backend call
 	const [users, setUsers] = useState([]);
-
-	const [bulkApi] = useBulkMutation();
+	const [filter, setFilter] = useState("");
 
 	useEffect(() => {
-		const fetchBulkUser = async () => {
-			try {
-				const res = await bulkApi().unwrap();
-				setUsers(res.user);
-				console.log(res.user);
-			} catch (err) {
-				toast.error(err?.data?.message || err.error);
-			}
-		};
-
-		fetchBulkUser();
+		axios
+			.get("http://localhost:3000/api/users/bulk?filter=" + filter)
+			.then((response) => {
+				setUsers(response.data.user);
+			});
 	}, [filter]);
 
 	return (
@@ -51,10 +40,12 @@ export const Users = () => {
 };
 
 function User({ user }) {
+	const navigate = useNavigate();
+
 	return (
-		<div className="flex items-center justify-between p-3 mb-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+		<div className="flex items-center justify-between p-1 mb-2 bg-white border border-gray-200 rounded-lg shadow-sm">
 			<div className="flex items-center">
-				<div className="rounded-full h-14 w-14 bg-gray-200 flex items-center justify-center mr-4 text-2xl font-bold text-gray-700">
+				<div className="rounded-full h-12 w-12 bg-gray-200 flex items-center justify-center mr-4 text-2xl font-bold text-gray-700">
 					{user.firstName[0]}
 				</div>
 				<div className="text-lg font-semibold text-gray-800">
@@ -62,9 +53,15 @@ function User({ user }) {
 				</div>
 			</div>
 			<div>
-				<Link to={`/send?to=${user._id}`}>
-					<Button label={"Send Money"} />
-				</Link>
+				<button
+					onClick={(e) => {
+						navigate("/send?id=" + user._id + "&name=" + user.firstName);
+					}}
+					type="button"
+					className="w-full text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-lg text-sm px-6 py-3 transition duration-300 ease-in-out transform hover:scale-105"
+				>
+					Send Money
+				</button>
 			</div>
 		</div>
 	);
