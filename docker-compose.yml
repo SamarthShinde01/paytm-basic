@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  backend:
+    image: paytm_backend
+    container_name: paytm_back
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=
+      - MONGO_URI=
+      - JWT_SECRET=
+      - NODE_ENV=
+
+  frontend:
+    image: paytm_frontend
+    container_name: paytm_front
+    ports:
+      - "3000:3000"

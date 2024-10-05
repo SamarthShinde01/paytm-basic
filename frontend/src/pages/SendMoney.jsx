@@ -13,6 +13,10 @@ export const SendMoney = () => {
 
 	const handleSubmit = async () => {
 		try {
+			if (!amount) {
+				toast("Please enter amount");
+				return;
+			}
 			await axios.post("http://localhost:3000/api/account/transfer", {
 				to: id,
 				amount,
@@ -56,6 +60,7 @@ export const SendMoney = () => {
 								className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500 px-3 py-2 sm:text-sm"
 								id="amount"
 								placeholder="Enter amount"
+								aria-required
 							/>
 						</div>
 						<button

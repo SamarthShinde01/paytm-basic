@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button } from "./Button";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
 	const [users, setUsers] = useState([]);
